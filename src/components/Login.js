@@ -92,7 +92,7 @@ const Login = ({ history }) => {
 
     <div className={classes.container} >
 
-        <StyledPaper >
+        <StyledPaper elevation={20}>
             <form onSubmit={handleLogin}>
                 <h2 className={classes.loginTitle}>ADMIN LOGIN</h2>
                 <StyledDiv>
