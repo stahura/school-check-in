@@ -2,11 +2,10 @@ import React from "react"
 import Paper from '@material-ui/core/Paper'
 import styled from "styled-components"
 import Header from "../shared-components/Header"
-import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
-import AppDrawer from "../shared-components/AppDrawer"
 import ResponsiveAppDrawer from "../shared-components/ResponsiveAppDrawer"
 import "../styles/global.css"
+import MaterialTableDemo from "../shared-components/Datatable"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,14 +21,29 @@ const useStyles = makeStyles((theme) => ({
         gridTemplateColumns: '1fr 1fr',
         gridTemplatRows: 'auto',
         gridGap: '5px',
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
            gridTemplatRows: '1fr 1fr',
            gridTemplateColumns: '1fr'
           },
-        
     },
     contentTopItem: {
         width: '100%',
+        height: '200px'
+    },
+    bigNumber: {
+        fontSize: '60px',
+        textAlign: 'center',
+        top: '55%',
+        margin: '0'
+    },
+    contentHeader: {
+        textAlign: 'center'
+    },
+    topPaper: {
+        height: '100%'
+    },
+    contentBottom: {
+        marginTop: '25px'
     }
     
 }))
@@ -38,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const StyledPaper = styled(Paper)`
     width: 100%;
     margin: 0 auto;
-    margin-top: 5px;
+    marginTop: 0
     
 `
 
@@ -57,13 +71,9 @@ const Home = () => {
                     <div className={classes.content}>
                         <div className={classes.contentTop}>
                             <div className={classes.contentTopItem}>
-                                <StyledPaper elevation={5} >
+                                <StyledPaper className={classes.topPaper} elevation={5} >
+                                    <h2 className={classes.contentHeader}>Recent Notes</h2>
                                     <div >
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
                                         <div>Test</div>
                                         <div>Test</div>
                                         <div>Test</div>
@@ -74,45 +84,23 @@ const Home = () => {
                                 </StyledPaper>
                             </div>
                             <div className={classes.contentTopItem}>
-                                <StyledPaper elevation={5} >
-                                    <div >
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                    </div>
+                                <StyledPaper className={classes.topPaper} elevation={5} >
+                                    <h2 className={classes.contentHeader}>Number Checked In</h2>
+                                    <p className={classes.bigNumber}>
+                                        5
+                                    </p>
                                 </StyledPaper>
 
                             </div>
                         </div>
-                        <StyledPaper elevation={5}>
-                            <div >
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                                    <div>Test</div>
-                            </div>
-                        </StyledPaper>
+                        <div className={classes.contentBottom}>
+                            <StyledPaper elevation={5}>
+                                <h2 className={classes.contentHeader}>Checked In List</h2>
+                                <div >
+                                    <MaterialTableDemo />
+                                </div>
+                            </StyledPaper>
+                        </div>
                     </div>
                 </div>
         </div>
