@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import firebase from "../firebase"
 
+
 const useStyles = makeStyles({
     root: {
         color: 'black',
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
         textDecoration: 'underline'
     },
     container: {
-        marginTop: '200px'
+        marginTop: '200px',
     }
 
 })
@@ -91,7 +92,7 @@ const Login = ({ history }) => {
     return (
 
     <div className={classes.container} >
-
+        
         <StyledPaper elevation={20}>
             <form onSubmit={handleLogin}>
                 <h2 className={classes.loginTitle}>ADMIN LOGIN</h2>

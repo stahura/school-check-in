@@ -4,31 +4,36 @@ import styled from "styled-components"
 import Header from "../shared-components/Header"
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
+import AppDrawer from "../shared-components/AppDrawer"
+import ResponsiveAppDrawer from "../shared-components/ResponsiveAppDrawer"
+import "../styles/global.css"
 
-const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        width: '85%',
-        margin: '0 auto',
-        justifyContent: 'space-around',
-        flexWrap: 'wrap',
-        marginTop: '20px',
-        paddingBottom: '10px'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex'
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+      },
+    contentTop : {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gridTemplatRows: 'auto',
+        gridGap: '5px',
+        [theme.breakpoints.down('xs')]: {
+           gridTemplatRows: '1fr 1fr',
+           gridTemplateColumns: '1fr'
+          },
         
     },
-    subContainer: {
-        display: 'flex',
-        width: '49%',
-    },
-    largeSubContainer: {
-        display: 'flex',
-        width: '99%',
-    },
-    test: {
-        width:'48%'
+    contentTopItem: {
+        width: '100%',
     }
+    
+}))
 
-})
 
 const StyledPaper = styled(Paper)`
     width: 100%;
@@ -45,69 +50,71 @@ const Home = () => {
 
     return (
 
-        <div>
+        <div >
             <Header />
-            <div className={classes.container}>
-                <div className={classes.subContainer}>
-                    <StyledPaper elevation={20} >
-                        <div >
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
+            <div className={classes.root}>
+                <ResponsiveAppDrawer />
+                    <div className={classes.content}>
+                        <div className={classes.contentTop}>
+                            <div className={classes.contentTopItem}>
+                                <StyledPaper elevation={5} >
+                                    <div >
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                    </div>
+                                </StyledPaper>
+                            </div>
+                            <div className={classes.contentTopItem}>
+                                <StyledPaper elevation={5} >
+                                    <div >
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                        <div>Test</div>
+                                    </div>
+                                </StyledPaper>
+
+                            </div>
                         </div>
-                    </StyledPaper>
+                        <StyledPaper elevation={5}>
+                            <div >
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                            </div>
+                        </StyledPaper>
+                    </div>
                 </div>
-                <div className={classes.subContainer}>
-                    <StyledPaper elevation={20} >
-                        <div >
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                            <div>Test</div>
-                        </div>
-                    </StyledPaper>
-                </div>
-            </div>
-            <div className={classes.container}>
-                <div className={classes.largeSubContainer}>
-                    <StyledPaper elevation={20}>
-                        <div >
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                                <div>Test</div>
-                        </div>
-                    </StyledPaper>
-                </div>
-            </div>
         </div>
     )
 }
