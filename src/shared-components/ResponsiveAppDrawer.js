@@ -27,10 +27,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
+    [theme.breakpoints.down('md')]: {
+        display: 'none'
+    }
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
