@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+        marginTop: '40px'
       },
     contentTop : {
         display: 'grid',
@@ -65,7 +66,7 @@ const Home = () => {
     return (
 
         <div >
-            <Header />
+            
             <div className={classes.root}>
                 <ResponsiveAppDrawer />
                     <div className={classes.content}>
