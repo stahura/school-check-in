@@ -1,48 +1,47 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import ChildCareIcon from '@material-ui/icons/ChildCare';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import TimelineIcon from '@material-ui/icons/Timeline';
-import SettingsIcon from '@material-ui/icons/Settings';
-import HelpIcon from '@material-ui/icons/Help';
-
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuIcon from "@material-ui/icons/Menu";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import ChildCareIcon from "@material-ui/icons/ChildCare";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import TimelineIcon from "@material-ui/icons/Timeline";
+import SettingsIcon from "@material-ui/icons/Settings";
+import HelpIcon from "@material-ui/icons/Help";
+import { Route, NavLink, HashRouter } from "react-router-dom";
 
 const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   drawer: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       width: drawerWidth,
       flexShrink: 0,
     },
-    [theme.breakpoints.down('md')]: {
-        display: 'none'
-    }
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
+    [theme.breakpoints.up("lg")]: {
+      display: "none",
     },
   },
   // necessary for content to be below app bar
@@ -57,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -72,34 +70,47 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-              <ListItem button key="Students">
-                  <ListItemIcon><ChildCareIcon /></ListItemIcon>
-                  <ListItemText primary="Students" />
-              </ListItem>
-              <ListItem button key="Administrators">
-                  <ListItemIcon><SupervisorAccountIcon /></ListItemIcon>
-                  <ListItemText primary="Administrators" />
-              </ListItem>
-              <ListItem button key="History">
-                  <ListItemIcon><TimelineIcon /></ListItemIcon>
-                  <ListItemText primary="History" />
-              </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem button key="Settings">
-                  <ListItemIcon><SettingsIcon /></ListItemIcon>
-                  <ListItemText primary="Settings" />
-            </ListItem>
-            <ListItem button key="Help">
-                  <ListItemIcon><HelpIcon /></ListItemIcon>
-                  <ListItemText primary="Help" />
-            </ListItem>
-          </List>
+        <NavLink to="/students">
+          <ListItem button key="Students">
+            <ListItemIcon>
+              <ChildCareIcon />
+            </ListItemIcon>
+            <ListItemText primary="Students" />
+          </ListItem>
+        </NavLink>
+        <ListItem button key="Administrators">
+          <ListItemIcon>
+            <SupervisorAccountIcon />
+          </ListItemIcon>
+          <ListItemText primary="Administrators" />
+        </ListItem>
+        <ListItem button key="History">
+          <ListItemIcon>
+            <TimelineIcon />
+          </ListItemIcon>
+          <ListItemText primary="History" />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button key="Settings">
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItem>
+        <ListItem button key="Help">
+          <ListItemIcon>
+            <HelpIcon />
+          </ListItemIcon>
+          <ListItemText primary="Help" />
+        </ListItem>
+      </List>
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <div className={classes.root}>
@@ -116,17 +127,16 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            School Administration
+            <NavLink to="/"> School Administration </NavLink>
           </Typography>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
             variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            anchor={theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
@@ -151,11 +161,8 @@ function ResponsiveDrawer(props) {
           </Drawer>
         </Hidden>
       </nav>
-      
     </div>
   );
 }
-
-
 
 export default ResponsiveDrawer;

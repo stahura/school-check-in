@@ -6,12 +6,6 @@ export default function MaterialTableDemo() {
     columns: [
       { title: 'Name', field: 'name' },
       { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
     ],
     data: [
       { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
@@ -25,7 +19,14 @@ export default function MaterialTableDemo() {
   });
 
   return (
-    <MaterialTable
+    <MaterialTable>
+      
+    </MaterialTable>
+  );
+}
+
+/*
+ <MaterialTable
       title="Editable Example"
       columns={state.columns}
       data={state.data}
@@ -67,5 +68,5 @@ export default function MaterialTableDemo() {
           }),
       }}
     />
-  );
-}
+
+*/

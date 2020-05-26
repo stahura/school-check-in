@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
-        marginTop: '40px'
+        marginTop: '40px',
+        [theme.breakpoints.down('sm')]: {
+            width: '60%'
+           },
       },
     contentTop : {
         display: 'grid',
@@ -24,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
         gridGap: '5px',
         [theme.breakpoints.down('sm')]: {
            gridTemplatRows: '1fr 1fr',
-           gridTemplateColumns: '1fr'
+           gridTemplateColumns: '1fr',
+           width: '90%',
+           margin: '0 auto'
           },
     },
     contentTopItem: {
@@ -44,7 +49,12 @@ const useStyles = makeStyles((theme) => ({
         height: '100%'
     },
     contentBottom: {
-        marginTop: '25px'
+        marginTop: '25px',
+        [theme.breakpoints.down('sm')]: {
+            width: '90%',
+            margin: '0 auto',
+            marginTop: '2px'
+        }
     }
     
 }))
