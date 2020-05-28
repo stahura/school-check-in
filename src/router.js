@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import AddStudent from "./components/AddStudent"
 
-const Router = () => (
+const Router = (props) => (
 
     <AuthProvider>
         <BrowserRouter>
