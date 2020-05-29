@@ -19,53 +19,35 @@ class Students extends React.Component {
 
   // GET STUDENT DATA WHEN COMPONENT MOUNTS
   componentDidMount() {
-    this.getStudentData(this.state.students[0]);
     this.createUniqueID();
+    this.getStudentData()
   }
 
   createUniqueID = () => {
     //From https://gist.github.com/gordonbrander/2230317
-    let id = Math.random().toString(36).substr(2, 15)
-    console.log(id)
-    return id
-  }
+    let id = Math.random().toString(36).substr(2, 15);
+    console.log(id);
+    return id;
+  };
 
-  addNewStudent = () => {
+  getStudentData = () => {
     const db = firebase.firestore();
-    let newID = this.createUniqueID()
-
-    
-
-  }
-
-  getStudentData = (id) => {
-    const db = firebase.firestore();
-    let currentStudentID = id;
-    let currentStudentProfileDocRef = db
-      .collection("students")
-      .doc(currentStudentID)
-      .collection("personal")
-      .doc("profile");
-    let currentStudentDocRef = db.collection("students").doc(currentStudentID);
-
-    currentStudentDocRef
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          let dbEntries = Object.keys(doc.data());
-          console.log("Exists: ", doc.data());
-          console.log("Entries: ", dbEntries);
-        } else {
-          console.log("doesn't exist");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    db.collection("students").get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+    });
   };
 
   render() {
-    return <StudentsContent addNewStudent={this.addNewStudent} createUniqueID={this.createUniqueID} students={this.state.students} />;
+    return (
+      <StudentsContent
+        addNewStudent={this.addNewStudent}
+        createUniqueID={this.createUniqueID}
+        students={this.state.students}
+      />
+    );
   }
 }
 
