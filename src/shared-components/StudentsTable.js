@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -32,26 +32,7 @@ const columns = [
   },
 ];
 
-function createData(firstName, lastName, studentID, guardianOne, guardianTwo) {
-  
-  return { firstName, lastName, studentID, guardianOne, guardianTwo };
-}
 
-const rows = [
-  createData('Riley','Stahura','10617813','Jeff Stahura', 'Jen Stahura'),
-  createData('Payton','Stahura','10879813','Jeff Stahura', 'Jen Stahura'),
-  createData('Maria','Chavarri','3442563','Gloria Santos', 'Dan the man'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
-  createData('Tobito','Stahura','1873713','Riley Stahura', 'Maria Stahura'),
- 
-
-];
 
 const useStyles = makeStyles({
   root: {
@@ -62,7 +43,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StudentsTable() {
+const StudentsTable = (props) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -75,6 +56,35 @@ export default function StudentsTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const createData = (firstName, lastName, studentID, guardianOne, guardianTwo) => {
+    //testfunc()
+    return { firstName, lastName, studentID, guardianOne, guardianTwo };
+  }
+  const rows = [
+
+  ];
+  /*
+    const testfunc = () => {
+      console.log("props.students: => ")
+      let i = 0
+      for (i in props.students) {
+        let firstName = props.students[i].firstName
+        let middleName = props.students[i].middleName
+        let lastName = props.students[i].lastName
+        let id = props.students[i].id
+        let guardianOne = "Jeff"
+        let guardianTwo = "Jen"
+  
+        rows.push({ firstName, lastName, id, guardianOne, guardianTwo })
+      }
+      console.log("rows", rows)
+    }
+  
+    useEffect(() => {
+      testfunc()
+      console.log("useEffect()")
+    }, [])*/
 
   return (
     <Paper className={classes.root}>
@@ -94,7 +104,7 @@ export default function StudentsTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+            {props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                   {columns.map((column) => {
@@ -123,3 +133,8 @@ export default function StudentsTable() {
     </Paper>
   );
 }
+
+export default StudentsTable
+/*
+
+*/

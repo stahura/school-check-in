@@ -8,7 +8,12 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import firebase from "../firebase";
 import Button from "@material-ui/core/Button";
-import Alert from "@material-ui/lab/Alert";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { Route, NavLink, HashRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "& > * + *": {
       marginTop: theme.spacing(2),
-      
+
     },
   },
 }));
@@ -47,7 +52,7 @@ const AddStudent = (props) => {
   //https://levelup.gitconnected.com/react-hooks-usestate-and-useeffect-2d0b870c654f
   //The following has to be done to prevent infinite loop but I don't get it
   //https://medium.com/@andrewmyint/infinite-loop-inside-useeffect-react-hooks-6748de62871
-
+  const [open, setOpen] = React.useState(false);
   const [studentID, setNewID] = useState("");
   const [newfirstName, setFirstName] = useState("");
   const [newmiddleName, setMiddleName] = useState("");
@@ -57,6 +62,14 @@ const AddStudent = (props) => {
   const [newguardianEmail, setGuardianEmail] = useState("");
   const [newguardianNumber, setGuardianNumber] = useState("");
   const [test, setTest] = useState(0); //Seems I just need an array that doesn't change to prevent infinite loop.. hence the name test
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleNewID = () => {
     let uid = props.location.createUniqueID();
@@ -102,6 +115,7 @@ const AddStudent = (props) => {
         firstName: newfirstName,
         middleName: newmiddleName,
         lastName: newlastName,
+        id: studentID
       })
       .then(function () {
         console.log("Student was saved");
@@ -126,6 +140,8 @@ const AddStudent = (props) => {
       .catch(function (error) {
         console.error(error);
       });
+
+    handleClickOpen();
   };
 
   useEffect(() => {
@@ -141,6 +157,26 @@ const AddStudent = (props) => {
   return (
     <div className={classes.root}>
       <ResponsiveAppDrawer />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Student Creation"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            The student has been successfully created
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <NavLink to="/students">
+            <Button onClick={handleClose} color="primary" autoFocus>
+              Okay
+          </Button>
+          </NavLink>
+        </DialogActions>
+      </Dialog>
       <div className={classes.content}>
         <StyledPaper elevation={20}>
           <h2 className={classes.header}>Adding New Student</h2>
@@ -244,16 +280,7 @@ const AddStudent = (props) => {
           </Card>
         </StyledPaper>
       </div>
-      <Alert
-            action={
-              <Button color="inherit" size="small">
-                UNDO
-              </Button>
-            }
-          >
-            This is a success alert — check it out!
-          </Alert>
-    </div>
+    </div >
   );
 };
 

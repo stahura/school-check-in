@@ -14,7 +14,8 @@ import StudentsContent from "./StudentsContent";
 
 class Students extends React.Component {
   state = {
-    students: ["tgPFur0YRbY5jR674H8c"],
+    students: [],
+    rows: []
   };
 
   // GET STUDENT DATA WHEN COMPONENT MOUNTS
@@ -30,15 +31,43 @@ class Students extends React.Component {
     return id;
   };
 
-  getStudentData = () => {
+  getStudentData = async () => {
     const db = firebase.firestore();
-    db.collection("students").get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
+    let students = [...this.state.students]
+
+    await db.collection("students").get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        students.push(doc.data())
+      });
     });
+
+    console.log("students", students)
+    this.state.students = students
+    this.setState({ students })
+    this.testfunc()
+
   };
+
+  testfunc = () => {
+    console.log("students: => ")
+    let students = this.state.students
+    let rows = this.state.rows
+    let i = 0
+    for (i in students) {
+      let firstName = students[i].firstName
+      let middleName = students[i].middleName
+      let lastName = students[i].lastName
+      let id = students[i].id
+      let guardianOne = "Jeff"
+      let guardianTwo = "Jen"
+
+      rows.push({ firstName, lastName, id, guardianOne, guardianTwo })
+    }
+    this.setState({ rows })
+    console.log("rows", rows)
+  }
 
   render() {
     return (
@@ -46,6 +75,7 @@ class Students extends React.Component {
         addNewStudent={this.addNewStudent}
         createUniqueID={this.createUniqueID}
         students={this.state.students}
+        rows={this.state.rows}
       />
     );
   }
