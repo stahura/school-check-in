@@ -8,16 +8,20 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import Button from "@material-ui/core/button";
 
 const columns = [
+
   { id: 'firstName', label: 'First Name', minWidth: 170 },
   { id: 'lastName', label: 'Last Name', minWidth: 100 },
   {
     id: 'id',
     label: 'id',
-    minWidth: 170,
+    minWidth: 100,
     align: 'right',
   },
+  { id: 'check-in', label: '', minWidth: 100 },
+  { id: 'check-out', label: '', minWidth: 100 }/*
   {
     id: 'guardianOne',
     label: 'Guardian 1',
@@ -29,7 +33,7 @@ const columns = [
     label: 'Guardian 2',
     minWidth: 170,
     align: 'right',
-  },
+  },*/
 ];
 
 
@@ -41,6 +45,14 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 440,
   },
+  checkButton: {
+    width: '85px',
+    height: '50px',
+    fontSize: '9px'
+  },
+  buttonCell: {
+    width: '120px'
+  }
 });
 
 const StudentsTable = (props) => {
@@ -84,8 +96,8 @@ const StudentsTable = (props) => {
     useEffect(() => {
       testfunc()
       console.log("useEffect()")
-    }, [])*/
-
+    }, [])
+    */
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -109,11 +121,26 @@ const StudentsTable = (props) => {
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                   {columns.map((column) => {
                     const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
-                      </TableCell>
-                    );
+                    if (column.id == "check-in") {
+                      return (
+                        <TableCell className={classes.buttonCell} key={column.id} align={column.align}>
+                          <Button className={classes.checkButton} variant="contained">Check-In</Button>
+                        </TableCell>
+                      )
+                    } else if (column.id == "check-out") {
+                      return (
+                        <TableCell className={classes.buttonCell} key={column.id} align={column.align}>
+                          <Button className={classes.checkButton} variant="contained">Check-Out</Button>
+                        </TableCell>
+                      );
+                    } else {
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number' ? column.format(value) : value}
+                        </TableCell>
+                      )
+                    }
+
                   })}
                 </TableRow>
               );
