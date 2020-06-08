@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import ResponsiveAppDrawer from "../shared-components/ResponsiveAppDrawer";
@@ -45,10 +45,29 @@ const StyledPaper = styled(Paper)`
     width: 100%;
     margin: 0 auto;
     margintop: 0;
-  `;
+`;
+
+
 
 
 const StudentsContent = (props) => {
+
+  const [key, setKey] = useState([123])
+
+  const generateKey = () => {
+    let key = Date.now()
+    setKey(key)
+  }
+
+  useEffect(() => {
+    //GENERATE UNIQUE ID FOR STUDENT WHEN COMPONENT RENDERS
+    //BECAUSE IT IS NOT RENDERED BUT INSTEAD PASSED THROUGH NAVLINK, FUNCTION IS PASSED INTO LOCATION
+    //https://medium.com/@bopaiahmd.mca/how-to-pass-props-using-link-and-navlink-in-react-router-v4-75dc1d9507b4
+    console.log("Rerendering StudentsContent")
+
+  }, [key]);
+
+
   let classes = useStyles()
   return (
     <div>
@@ -78,7 +97,15 @@ const StudentsContent = (props) => {
                     </Button>
               </div>
               <div>
-                <StudentsTable rows={props.rows} students={props.students} />
+                <StudentsTable
+                  sendNewCheckInStatusToDB={props.sendNewCheckInStatusToDB}
+                  handleCheckInClick={props.handleCheckInClick}
+                  rows={props.rows}
+                  students={props.students}
+                  handleCheckOutClick={props.handleCheckOutClick}
+                  genKey={generateKey}
+                  key={key}
+                />
               </div>
             </div>
           </StyledPaper>

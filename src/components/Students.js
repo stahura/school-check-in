@@ -15,14 +15,23 @@ import StudentsContent from "./StudentsContent";
 class Students extends React.Component {
   state = {
     students: [],
-    rows: []
+    rows: [],
+    key: true,
+    count: 0
   };
+
+
+  changeKey = () => {
+
+    this.setState(prevProps => ({ count: prevProps.count + 1 }));
+  }
 
   // GET STUDENT DATA WHEN COMPONENT MOUNTS
   componentDidMount() {
     this.createUniqueID();
     this.getStudentData()
   }
+
 
   createUniqueID = () => {
     //From https://gist.github.com/gordonbrander/2230317
@@ -43,15 +52,14 @@ class Students extends React.Component {
       });
     });
 
-    console.log("students", students)
     this.state.students = students
+    this.copyStudentToRows()
     this.setState({ students })
-    this.testfunc()
+
 
   };
 
-  testfunc = () => {
-    console.log("students: => ")
+  copyStudentToRows = () => {
     let students = this.state.students
     let rows = this.state.rows
     let i = 0
@@ -62,20 +70,97 @@ class Students extends React.Component {
       let id = students[i].id
       let guardianOne = "Jeff"
       let guardianTwo = "Jen"
+      let checkedIn = students[i].checkedIn
 
-      rows.push({ firstName, lastName, id, guardianOne, guardianTwo })
+      rows.push({ firstName, lastName, id, guardianOne, guardianTwo, checkedIn })
     }
     this.setState({ rows })
-    console.log("rows", rows)
+
   }
 
+  handleCheckInClick = (e) => {
+    console.log(e.currentTarget.parentNode.parentNode.children[2].id)
+    let selectedStudentId = e.currentTarget.parentNode.parentNode.children[2].id
+    let students = this.state.students
+    let i = 0
+    for (i in students) {
+      if (students[i].id = selectedStudentId) {
+        students[i].checkedIn = true
+        this.sendNewCheckInStatusToDB(selectedStudentId, true)
+      }
+    }
+    this.setState({ students })
+    this.setState(prevProps => ({ key: !prevProps.key }));
+  }
+
+  handleCheckOutClick = (e) => {
+    console.log(e.currentTarget.parentNode.parentNode.children[2].id)
+    let selectedStudentId = e.currentTarget.parentNode.parentNode.children[2].id
+    let students = this.state.students
+    let i = 0
+    for (i in students) {
+      if (students[i].id = selectedStudentId) {
+        students[i].checkedIn = false
+        this.sendNewCheckOutStatusToDB(selectedStudentId, false)
+      }
+    }
+    this.setState({ students })
+
+
+  }
+
+  sendNewCheckInStatusToDB = async (id, status) => {
+    const db = firebase.firestore();
+
+
+    await db.collection("students")
+      .doc(id)
+      .update({
+        checkedIn: status
+      })
+      .then(function () {
+        console.log("Student was saved");
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+
+  };
+
+  sendNewCheckOutStatusToDB = async (id, status) => {
+    const db = firebase.firestore();
+
+
+    await db.collection("students")
+      .doc(id)
+      .update({
+        checkedIn: status
+      })
+      .then(function () {
+        console.log("Student was saved");
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+
+  };
+
+
+
   render() {
+
+    const { key, count } = this.state
     return (
       <StudentsContent
         addNewStudent={this.addNewStudent}
         createUniqueID={this.createUniqueID}
         students={this.state.students}
         rows={this.state.rows}
+        handleCheckInClick={this.handleCheckInClick}
+        handleCheckOutClick={this.handleCheckOutClick}
+        key={key}
       />
     );
   }

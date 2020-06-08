@@ -9,6 +9,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Button from "@material-ui/core/button";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { Route, NavLink, HashRouter } from "react-router-dom";
 
 const columns = [
 
@@ -59,109 +65,102 @@ const StudentsTable = (props) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const [rows, setRows] = useState([])
+  const [key, setKey] = useState(1)
+
+
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
-  const createData = (firstName, lastName, studentID, guardianOne, guardianTwo) => {
-    //testfunc()
-    return { firstName, lastName, studentID, guardianOne, guardianTwo };
+  const checkoutHandler = (e) => {
+    props.handleCheckOutClick(e)
+    setKey(Date.now())
   }
-  const rows = [
 
-  ];
-  /*
-    const testfunc = () => {
-      console.log("props.students: => ")
-      let i = 0
-      for (i in props.students) {
-        let firstName = props.students[i].firstName
-        let middleName = props.students[i].middleName
-        let lastName = props.students[i].lastName
-        let id = props.students[i].id
-        let guardianOne = "Jeff"
-        let guardianTwo = "Jen"
-  
-        rows.push({ firstName, lastName, id, guardianOne, guardianTwo })
-      }
-      console.log("rows", rows)
-    }
-  
-    useEffect(() => {
-      testfunc()
-      console.log("useEffect()")
-    }, [])
-    */
+
+
+
   return (
-    <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    if (column.id == "check-in") {
-                      return (
-                        <TableCell className={classes.buttonCell} key={column.id} align={column.align}>
-                          <Button className={classes.checkButton} variant="contained">Check-In</Button>
-                        </TableCell>
-                      )
-                    } else if (column.id == "check-out") {
-                      return (
-                        <TableCell className={classes.buttonCell} key={column.id} align={column.align}>
-                          <Button className={classes.checkButton} variant="contained">Check-Out</Button>
-                        </TableCell>
-                      );
-                    } else {
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number' ? column.format(value) : value}
-                        </TableCell>
-                      )
-                    }
+    <div>
+      <Paper className={classes.root}>
+        <TableContainer key={key} className={classes.container}>
+          <Table key={key} stickyHeader aria-label="sticky table">
+            <TableHead key={key}>
+              <TableRow key={key}>
+                {columns.map((column) => (
+                  <TableCell
+                    key={key}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody key={key}>
+              {props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={key}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      if ((column.id == "check-in") && (row.checkedIn == false)) {
+                        console.log(row)
+                        return (
+                          <TableCell key={key} className={classes.buttonCell} align={column.align}>
+                            <Button onClick={props.handleCheckInClick} className={classes.checkButton} variant="contained">Check-In</Button>
+                          </TableCell>
+                        )
+                      } else if ((column.id == "check-out") && (row.checkedIn == true)) {
+                        return (
+                          <TableCell className={classes.buttonCell} key={key} align={column.align}>
+                            <Button onClick={checkoutHandler} className={classes.checkButton} variant="contained">Check-Out</Button>
+                          </TableCell>
+                        );
+                      } else if (value == row.id) {
 
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-    </Paper>
+                        return (
+                          <TableCell id={value} key={key} align={column.align}>
+                            {column.format && typeof value === 'number' ? column.format(value) : value}
+                          </TableCell>
+                        )
+                      } else {
+                        return (
+                          <TableCell key={key} align={column.align}>
+                            {column.format && typeof value === 'number' ? column.format(value) : value}
+                          </TableCell>
+                        )
+                      }
+
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+          key={props.key}
+        />
+      </Paper>
+    </div>
   );
 }
 
 export default StudentsTable
 /*
-
+<Button onClick={props.handleCheckOutClick} className={classes.checkButton} variant="contained">Check-Out</Button>
 */
