@@ -52,18 +52,20 @@ const StyledPaper = styled(Paper)`
 
 const StudentsContent = (props) => {
 
-  const [key, setKey] = useState([123])
+  const [key, setKey] = useState([0])
 
   const generateKey = () => {
-    let key = Date.now()
+    key.push(Date.now())
     setKey(key)
+
   }
 
   useEffect(() => {
     //GENERATE UNIQUE ID FOR STUDENT WHEN COMPONENT RENDERS
     //BECAUSE IT IS NOT RENDERED BUT INSTEAD PASSED THROUGH NAVLINK, FUNCTION IS PASSED INTO LOCATION
     //https://medium.com/@bopaiahmd.mca/how-to-pass-props-using-link-and-navlink-in-react-router-v4-75dc1d9507b4
-    console.log("Rerendering StudentsContent")
+
+    generateKey()
 
   }, [key]);
 
@@ -105,6 +107,8 @@ const StudentsContent = (props) => {
                   handleCheckOutClick={props.handleCheckOutClick}
                   genKey={generateKey}
                   key={key}
+                  getData={props.getData}
+                  changeKey={props.changeKey}
                 />
               </div>
             </div>

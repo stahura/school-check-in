@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import ResponsiveAppDrawer from "../shared-components/ResponsiveAppDrawer"
 import "../styles/global.css"
 import MaterialTableDemo from "../shared-components/Datatable"
+import EnhancedTable from "../shared-components/GroupTable"
 
 
 
@@ -19,19 +20,19 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '40px',
         [theme.breakpoints.down('sm')]: {
             width: '60%'
-           },
-      },
-    contentTop : {
+        },
+    },
+    contentTop: {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
         gridTemplatRows: 'auto',
         gridGap: '5px',
         [theme.breakpoints.down('sm')]: {
-           gridTemplatRows: '1fr 1fr',
-           gridTemplateColumns: '1fr',
-           width: '90%',
-           margin: '0 auto'
-          },
+            gridTemplatRows: '1fr 1fr',
+            gridTemplateColumns: '1fr',
+            width: '90%',
+            margin: '0 auto'
+        },
     },
     contentTopItem: {
         width: '100%',
@@ -55,9 +56,10 @@ const useStyles = makeStyles((theme) => ({
             width: '90%',
             margin: '0 auto',
             marginTop: '2px'
-        }
+        },
+        maxHeight: '300px'
     }
-    
+
 }))
 
 
@@ -77,44 +79,44 @@ const Home = () => {
     return (
 
         <div >
-            
+
             <div className={classes.root}>
                 <ResponsiveAppDrawer />
-                    <div className={classes.content}>
-                        <div className={classes.contentTop}>
-                            <div className={classes.contentTopItem}>
-                                <StyledPaper className={classes.topPaper} elevation={5} >
-                                    <h2 className={classes.contentHeader}>Recent Notes</h2>
-                                    <div >
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                        <div>Test</div>
-                                    </div>
-                                </StyledPaper>
-                            </div>
-                            <div className={classes.contentTopItem}>
-                                <StyledPaper className={classes.topPaper} elevation={5} >
-                                    <h2 className={classes.contentHeader}>Number Checked In</h2>
-                                    <p className={classes.bigNumber}>
-                                        5
-                                    </p>
-                                </StyledPaper>
-
-                            </div>
-                        </div>
-                        <div className={classes.contentBottom}>
-                            <StyledPaper elevation={5}>
-                                <h2 className={classes.contentHeader}>Checked In List</h2>
+                <div className={classes.content}>
+                    <div className={classes.contentTop}>
+                        <div className={classes.contentTopItem}>
+                            <StyledPaper className={classes.topPaper} elevation={5} >
+                                <h2 className={classes.contentHeader}>Recent Notes</h2>
                                 <div >
-                                    <MaterialTableDemo />
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
+                                    <div>Test</div>
                                 </div>
                             </StyledPaper>
                         </div>
+                        <div className={classes.contentTopItem}>
+                            <StyledPaper className={classes.topPaper} elevation={5} >
+                                <h2 className={classes.contentHeader}>Number Checked In</h2>
+                                <p className={classes.bigNumber}>
+                                    5
+                                    </p>
+                            </StyledPaper>
+
+                        </div>
+                    </div>
+                    <div className={classes.contentBottom}>
+                        <StyledPaper elevation={5}>
+
+                            <div >
+                                <EnhancedTable checkbox={false} />
+                            </div>
+                        </StyledPaper>
                     </div>
                 </div>
+            </div>
         </div>
     )
 }

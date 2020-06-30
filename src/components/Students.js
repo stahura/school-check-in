@@ -16,20 +16,23 @@ class Students extends React.Component {
   state = {
     students: [],
     rows: [],
-    key: true,
-    count: 0
+    key: 0,
+    count: 0,
   };
 
 
   changeKey = () => {
 
-    this.setState(prevProps => ({ count: prevProps.count + 1 }));
+    this.setState({ key: Date.now() })
   }
 
   // GET STUDENT DATA WHEN COMPONENT MOUNTS
   componentDidMount() {
     this.createUniqueID();
-    this.getStudentData()
+    this.getStudentData();
+
+
+
   }
 
 
@@ -61,7 +64,7 @@ class Students extends React.Component {
 
   copyStudentToRows = () => {
     let students = this.state.students
-    let rows = this.state.rows
+    let rows = [...this.state.rows]
     let i = 0
     for (i in students) {
       let firstName = students[i].firstName
@@ -90,7 +93,8 @@ class Students extends React.Component {
       }
     }
     this.setState({ students })
-    this.setState(prevProps => ({ key: !prevProps.key }));
+    //this.setState(prevProps => ({ key: !prevProps.key }));
+    this.changeKey()
   }
 
   handleCheckOutClick = (e) => {
@@ -151,7 +155,7 @@ class Students extends React.Component {
 
   render() {
 
-    const { key, count } = this.state
+
     return (
       <StudentsContent
         addNewStudent={this.addNewStudent}
@@ -160,7 +164,9 @@ class Students extends React.Component {
         rows={this.state.rows}
         handleCheckInClick={this.handleCheckInClick}
         handleCheckOutClick={this.handleCheckOutClick}
-        key={key}
+        getData={this.getStudentData}
+        key={this.state.key}
+        changeKey={this.changeKey}
       />
     );
   }

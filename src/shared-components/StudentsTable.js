@@ -22,24 +22,12 @@ const columns = [
   { id: 'lastName', label: 'Last Name', minWidth: 100 },
   {
     id: 'id',
-    label: 'id',
+    label: 'ID',
     minWidth: 100,
-    align: 'right',
+    align: 'center',
   },
   { id: 'check-in', label: '', minWidth: 100 },
-  { id: 'check-out', label: '', minWidth: 100 }/*
-  {
-    id: 'guardianOne',
-    label: 'Guardian 1',
-    minWidth: 170,
-    align: 'right',
-  },
-  {
-    id: 'guardianTwo',
-    label: 'Guardian 2',
-    minWidth: 170,
-    align: 'right',
-  },*/
+  { id: 'check-out', label: '', minWidth: 100 }
 ];
 
 
@@ -73,6 +61,14 @@ const StudentsTable = (props) => {
 
 
 
+  const useForceUpdate = () => {
+
+    // update the state to force render
+    console.log("Forcing update")
+  }
+
+
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -80,22 +76,32 @@ const StudentsTable = (props) => {
 
   const checkoutHandler = (e) => {
     props.handleCheckOutClick(e)
-    setKey(Date.now())
+
+    let num = Date.now()
+    props.genKey()
+    setKey(num)
+    props.changeKey()
+    console.log("num is: ", num)
+    // update the state to force render
+
   }
 
+  const [value, setValue] = useState(key);
+  // This will launch only if propName value has chaged.
+  useEffect(() => { setValue((key)) }, [key]);
 
 
 
   return (
     <div>
       <Paper className={classes.root}>
-        <TableContainer key={key} className={classes.container}>
-          <Table key={key} stickyHeader aria-label="sticky table">
-            <TableHead key={key}>
-              <TableRow key={key}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead >
+              <TableRow >
                 {columns.map((column) => (
                   <TableCell
-                    key={key}
+
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
                   >
@@ -107,32 +113,32 @@ const StudentsTable = (props) => {
             <TableBody key={key}>
               {props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={key}>
+                  <TableRow hover role="checkbox" tabIndex={-1} >
                     {columns.map((column) => {
                       const value = row[column.id];
                       if ((column.id == "check-in") && (row.checkedIn == false)) {
                         console.log(row)
                         return (
-                          <TableCell key={key} className={classes.buttonCell} align={column.align}>
+                          <TableCell className={classes.buttonCell} align={column.align}>
                             <Button onClick={props.handleCheckInClick} className={classes.checkButton} variant="contained">Check-In</Button>
                           </TableCell>
                         )
                       } else if ((column.id == "check-out") && (row.checkedIn == true)) {
                         return (
-                          <TableCell className={classes.buttonCell} key={key} align={column.align}>
+                          <TableCell className={classes.buttonCell} align={column.align}>
                             <Button onClick={checkoutHandler} className={classes.checkButton} variant="contained">Check-Out</Button>
                           </TableCell>
                         );
                       } else if (value == row.id) {
 
                         return (
-                          <TableCell id={value} key={key} align={column.align}>
+                          <TableCell id={value} align={column.align}>
                             {column.format && typeof value === 'number' ? column.format(value) : value}
                           </TableCell>
                         )
                       } else {
                         return (
-                          <TableCell key={key} align={column.align}>
+                          <TableCell align={column.align}>
                             {column.format && typeof value === 'number' ? column.format(value) : value}
                           </TableCell>
                         )
@@ -153,7 +159,7 @@ const StudentsTable = (props) => {
           page={page}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
-          key={props.key}
+
         />
       </Paper>
     </div>

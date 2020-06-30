@@ -68,9 +68,9 @@ const Login = ({ history }) => {
         async event => {
             event.preventDefault();
             const { email, password } = event.target.elements
-            
-            console.log("Email,password:",email,password)
-            console.log("event target:",event.target.elements)
+
+            console.log("Email,password:", email, password)
+            console.log("event target:", event.target.elements)
             try {
                 await firebase
                     .auth()
@@ -91,54 +91,56 @@ const Login = ({ history }) => {
 
     return (
 
-    <div className={classes.container} >
-        
-        <StyledPaper elevation={20}>
-            <form onSubmit={handleLogin}>
-                <h2 className={classes.loginTitle}>ADMIN LOGIN</h2>
-                <StyledDiv>
+        <div className={classes.container} >
 
-                
-                    
-                    <StyledField
-                        type="email"
-                        name="email"
-                        style={{ margin: 8 }}
-                        placeholder="Enter your username..."
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        label="Username"
-                        variant="outlined"
-                         >
-                    </StyledField>
-               
-                        
-                    <StyledField
-                        type="password"
-                        name="password"
-                        style={{ margin: 8 }}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        label="Password"
-                        placeholder="Enter your password..."
-                        variant="outlined"
-                         >
-                    </StyledField>
-                    
-                </StyledDiv>
-                
-                <StyledDiv>
-                    <StyledButton classes={{ root: classes.root }} type="submit">Submit</StyledButton>
-                </StyledDiv>
-            </form>
+            <StyledPaper elevation={20}>
+                <form onSubmit={handleLogin}>
+                    <h2 className={classes.loginTitle}>ADMIN LOGIN</h2>
+                    <StyledDiv>
 
 
-        </StyledPaper>
-    </div >
-        
-        
+
+                        <StyledField
+                            type="email"
+                            name="email"
+                            style={{ margin: 8 }}
+                            placeholder="Enter your username..."
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            label="Username"
+                            variant="outlined"
+                        >
+                        </StyledField>
+
+
+                        <StyledField
+                            type="password"
+                            name="password"
+                            style={{ margin: 8 }}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            label="Password"
+                            placeholder="Enter your password..."
+                            variant="outlined"
+                        >
+                        </StyledField>
+
+                    </StyledDiv>
+
+                    <StyledDiv>
+                        <StyledButton classes={{ root: classes.root }} type="submit">Submit</StyledButton>
+                    </StyledDiv>
+                </form>
+
+
+            </StyledPaper>
+            <div style={{ textAlign: 'center', margin: '0 auto', marginTop: '50px', width: '50%' }}>An option to create new users has not been created.</div>
+            <div style={{ textAlign: 'center', margin: '0 auto', marginTop: '0px', width: '50%' }}>Please send an email to riley.stahura@gmail.com to get a test account.</div>
+        </div >
+
+
     )
 }
 

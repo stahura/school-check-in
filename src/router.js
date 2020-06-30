@@ -11,18 +11,22 @@ import {
 } from "react-router-dom";
 import AddStudent from "./components/AddStudent"
 
-const Router = (props) => (
+const Router = (props) => {
 
-    <AuthProvider>
-        <BrowserRouter>
-            <Switch>
-                <PrivateRoute exact path="/" component={Home} />
-                <Route path="/login" component={Login} />
-                <PrivateRoute path="/students" component={Students} />
-                <PrivateRoute path="/addStudents" component={AddStudent} />
-            </Switch>
-        </BrowserRouter>
-    </AuthProvider>
-)
+
+    return (
+        <AuthProvider>
+            <BrowserRouter >
+                <Switch>
+                    <PrivateRoute path={"/students"} component={Students} />
+                    <PrivateRoute path="/addStudents" component={AddStudent} />
+                    <PrivateRoute exact path="/" component={Home} />
+                    <Route path="/login" component={Login} />
+                </Switch>
+            </BrowserRouter>
+        </AuthProvider>
+    )
+
+}
 
 export default Router;
