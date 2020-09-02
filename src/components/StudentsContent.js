@@ -65,9 +65,9 @@ const StudentsContent = (props) => {
     //BECAUSE IT IS NOT RENDERED BUT INSTEAD PASSED THROUGH NAVLINK, FUNCTION IS PASSED INTO LOCATION
     //https://medium.com/@bopaiahmd.mca/how-to-pass-props-using-link-and-navlink-in-react-router-v4-75dc1d9507b4
 
-    generateKey()
+    // generateKey()
 
-  }, [key]);
+  }, []);
 
 
   let classes = useStyles()
@@ -84,7 +84,7 @@ const StudentsContent = (props) => {
                 <NavLink to={{ pathname: '/addStudents', createUniqueID: props.createUniqueID, addNewStudent: props.addNewStudent }}>
                   <Button
                     className={classes.item}
-                    color="primary"
+                    color="secondary"
                     variant="contained"
                   >
                     Add Students
@@ -92,8 +92,9 @@ const StudentsContent = (props) => {
                 </NavLink>
                 <Button
                   className={classes.item}
-                  color="primary"
+                  color="secondary"
                   variant="contained"
+                  style={{color: 'white'}}
                 >
                   Remove Students
                     </Button>

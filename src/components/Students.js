@@ -28,8 +28,8 @@ class Students extends React.Component {
 
   // GET STUDENT DATA WHEN COMPONENT MOUNTS
   componentDidMount() {
-    this.createUniqueID();
-    this.getStudentData();
+    //this.createUniqueID();
+    //this.getStudentData();
 
 
 

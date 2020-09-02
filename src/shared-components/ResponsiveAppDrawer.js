@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       display: "none",
     },
+    
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -46,8 +47,10 @@ const useStyles = makeStyles((theme) => ({
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
+
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: '#212121',
   },
   content: {
     flexGrow: 1,
@@ -69,24 +72,24 @@ function ResponsiveDrawer(props) {
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <List>
+      <List  >
         <NavLink to="/students">
           <ListItem button key="Students">
             <ListItemIcon>
-              <ChildCareIcon />
+              <ChildCareIcon color="secondary" />
             </ListItemIcon>
             <ListItemText primary="Students" />
           </ListItem>
         </NavLink>
         <ListItem button key="Administrators">
           <ListItemIcon>
-            <SupervisorAccountIcon />
+            <SupervisorAccountIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="Administrators" />
         </ListItem>
         <ListItem button key="History">
           <ListItemIcon>
-            <TimelineIcon />
+            <TimelineIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="History" />
         </ListItem>
@@ -95,13 +98,13 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button key="Settings">
           <ListItemIcon>
-            <SettingsIcon />
+            <SettingsIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="Settings" />
         </ListItem>
         <ListItem button key="Help">
           <ListItemIcon>
-            <HelpIcon />
+            <HelpIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="Help" />
         </ListItem>
@@ -115,25 +118,27 @@ function ResponsiveDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
+      <AppBar color="primary" position="fixed" className={classes.appBar}>
+        <Toolbar style={{justifyContent: 'space-between'}}>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             className={classes.menuButton}
           >
-            <MenuIcon />
+            <MenuIcon color="secondary" />
           </IconButton>
           <Typography variant="h6" noWrap>
-            <NavLink to="/"> School Administration </NavLink>
+            <NavLink style={{color: 'white'}} to="/"> School Administration </NavLink>
           </Typography>
+          <div style={{color: 'white'}}>Logout</div>
         </Toolbar>
+       
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         <Hidden smUp implementation="css">
           <Drawer
+            
             container={container}
             variant="temporary"
             anchor={theme.direction === "rtl" ? "right" : "left"}

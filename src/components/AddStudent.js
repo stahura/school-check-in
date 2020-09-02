@@ -149,8 +149,8 @@ const AddStudent = (props) => {
     //BECAUSE IT IS NOT RENDERED BUT INSTEAD PASSED THROUGH NAVLINK, FUNCTION IS PASSED INTO LOCATION
     //https://medium.com/@bopaiahmd.mca/how-to-pass-props-using-link-and-navlink-in-react-router-v4-75dc1d9507b4
 
-    handleNewID();
-  }, [test]);
+    //handleNewID();
+  }, []);
 
   const classes = useStyles();
 

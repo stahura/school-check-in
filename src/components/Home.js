@@ -7,12 +7,13 @@ import ResponsiveAppDrawer from "../shared-components/ResponsiveAppDrawer"
 import "../styles/global.css"
 import MaterialTableDemo from "../shared-components/Datatable"
 import EnhancedTable from "../shared-components/GroupTable"
+import CheckedInTable from "../components/CheckedInTable"
 
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex'
+        marginTop: '100px',
     },
     content: {
         flexGrow: 1,
@@ -73,7 +74,7 @@ const StyledPaper = styled(Paper)`
 
 
 
-const Home = () => {
+const Home = (props) => {
     const classes = useStyles()
 
     return (
@@ -81,8 +82,17 @@ const Home = () => {
         <div >
 
             <div className={classes.root}>
-                <ResponsiveAppDrawer />
-                <div className={classes.content}>
+                <ResponsiveAppDrawer  />
+                <CheckedInTable students={props.students    } />
+            </div>
+        </div>
+    )
+}
+
+export default Home
+
+/*
+ <div className={classes.content}>
                     <div className={classes.contentTop}>
                         <div className={classes.contentTopItem}>
                             <StyledPaper className={classes.topPaper} elevation={5} >
@@ -116,9 +126,4 @@ const Home = () => {
                         </StyledPaper>
                     </div>
                 </div>
-            </div>
-        </div>
-    )
-}
-
-export default Home
+*/

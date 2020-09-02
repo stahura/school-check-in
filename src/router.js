@@ -16,7 +16,7 @@ const Router = (props) => {
 
     return (
         <AuthProvider>
-            <BrowserRouter >
+            <BrowserRouter  >
                 <Switch>
                     <PrivateRoute path={"/students"} component={Students} />
                     <PrivateRoute path="/addStudents" component={AddStudent} />
