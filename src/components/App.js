@@ -20,6 +20,7 @@ const App = () => {
    const [studentsLoaded,setStudentsLoaded] = useState(false)
    const [checkedInStudents,setCheckedInStudents] = useState([])
    const [tableKeyTwo, setTableKeyTwo] = useState(10)
+  
 
    const db = firebase.firestore();
 
@@ -95,13 +96,18 @@ const App = () => {
         let tempStudents = students
         let i = 0
         for (i in tempStudents) {
-          if (tempStudents[i].id = selectedStudentId) {
+          if (tempStudents[i].id === selectedStudentId) {
             tempStudents[i].checkedIn = true
             sendNewCheckInStatusToDB(selectedStudentId, true)
           }
         }
+        //console.table(tempStudents)
         setStudents(tempStudents)
+        //console.table(students)
+
         reRenderTable()
+        //console.table(tempStudents)
+        //console.table(students)
     }
 
     const handleCheckOut = (e) => {
@@ -111,13 +117,18 @@ const App = () => {
         let i = 0
 
         for (i in tempStudents) {
-          if (tempStudents[i].id = selectedStudentId) {
+          if (tempStudents[i].id === selectedStudentId) {
             tempStudents[i].checkedIn = false
             sendNewCheckOutStatusToDB(selectedStudentId, false)
           }
         }
+        //console.table(tempStudents)
         setStudents(tempStudents)
+        //console.table(students)
+
         reRenderTable()
+        //console.table(tempStudents)
+        //console.table(students)
     
       }
 
@@ -133,7 +144,15 @@ const App = () => {
 
     const reRenderTable = () => {
         setTableKeyTwo(tableKeyTwo + 1)
+        
     }
+
+    const addNewStudentToState = (tempStudents) => {
+        setStudentsLoaded(false)
+        console.log("adding tempStudent")
+        setStudents(tempStudents)
+    }
+    
     
     return(
     <AuthProvider>
@@ -141,7 +160,7 @@ const App = () => {
             <Switch>
                 <PrivateRoute 
                     path="/students" 
-                    component={() => <Students studentTableKey={tableKeyTwo} handleCheckout={handleCheckOut} handleCheckin={handleCheckin} students={students} />} 
+                    component={() => <Students addNewStudentToState={addNewStudentToState} reRenderTable={reRenderTable} studentTableKey={tableKeyTwo} handleCheckout={handleCheckOut} handleCheckin={handleCheckin} students={students} />} 
                 />
                 <PrivateRoute 
                     path="/addStudents" 

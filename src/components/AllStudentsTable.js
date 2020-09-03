@@ -25,10 +25,8 @@ import checkInTheme from "../styles/checkInTheme"
 const useStyles = makeStyles((theme) => ({
   table: {
     maxWidth: 900,
-   marginLeft: '350px',
-   [theme.breakpoints.down("md")]: {
-    margin: '0 auto'
-  },
+   //marginLeft: '350px',
+    margin: '0 auto',
   [theme.breakpoints.down("sm")]: {
     width: '95%'
   },
@@ -44,19 +42,19 @@ const useStyles = makeStyles((theme) => ({
     height: "67px",
     display: "grid",
     backgroundColor: "#212121",
-    maxWidth: 900,
-    marginLeft: '350px',
+    width: "100%",
+    
     [theme.breakpoints.down("md")]: {
         margin: '0 auto'
       },
-    [theme.breakpoints.down("sm")]: {
-    width: '95%'
-    },
+
   },
   tableTitle: {
     alignSelf: "center",
     color: "white",
     textAlign: "center",
+    width: '100%',
+    
   },
   text: {
     [theme.breakpoints.down("sm")]: {
@@ -89,11 +87,13 @@ const AddressTable = (props) => {
   return (
       <MuiThemeProvider theme={checkInTheme}>
     <Fragment>
-      <div className={classes.tableTitleBackground}>
+
+      <Paper elevation={10} className={classes.table}>
+      
+        <TableContainer className={classes.test}>
+        <div className={classes.tableTitleBackground}>
         <h4 className={classes.tableTitle}>All Enrolled Students</h4>
       </div>
-      <Paper elevation={10} className={classes.table}>
-        <TableContainer className={classes.test}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -109,7 +109,7 @@ const AddressTable = (props) => {
             {(rowsPerPage > 0 ? props.students.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage): props.students).map((row) => {
                 if(row.checkedIn == false) {
                     return (
-                        <TableRow key={row.id}>
+                        <TableRow >
                         <TableCell className={classes.text} align="center">
                             {row.firstName}
                         </TableCell>
@@ -132,7 +132,7 @@ const AddressTable = (props) => {
                 )
                 } else {
                     return (
-                        <TableRow key={row.id}>
+                        <TableRow >
                         <TableCell className={classes.text} align="center">
                             {row.firstName}
                         </TableCell>

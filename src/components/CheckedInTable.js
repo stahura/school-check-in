@@ -92,6 +92,11 @@ const AddressTable = (props) => {
     setPage(0);
   };
 
+  useEffect(() => {
+    
+    console.log("From checkedinTabe:UseEffect =>")
+    console.table(props.checkedInStudents)
+  },[props.checkedInStudents])
   return (
     <Fragment>
       <div className={classes.tableTitleBackground}>

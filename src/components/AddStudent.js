@@ -18,9 +18,13 @@ import { Route, NavLink, HashRouter } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    marginTop: "80px",
-    width: "100%",
+    maxWidth: 900,
     zIndex: '1',
+    margin: '0 auto',
+    [theme.breakpoints.down("sm")]: {
+      width: '95%'
+    },
+    
   },
   content: {
     display: "flex",
@@ -71,8 +75,15 @@ const AddStudent = (props) => {
     setOpen(false);
   };
 
+  const createUniqueID = () => {
+    //From https://gist.github.com/gordonbrander/2230317
+    let id = Math.random().toString(36).substr(2, 15);
+    console.log(id);
+    return id;
+  };
+
   const handleNewID = () => {
-    let uid = props.location.createUniqueID();
+    let uid = createUniqueID();
 
     setNewID(uid);
     console.log("handleNewID: ", uid);
@@ -142,21 +153,31 @@ const AddStudent = (props) => {
       });
 
     handleClickOpen();
+    //props.reRenderTable()
+    let tempStudent = {        
+      firstName: newfirstName,
+      middleName: newmiddleName,
+      lastName: newlastName,
+      id: studentID}
+    
+    let tempStudents = props.students
+    tempStudents.push(tempStudent)
+
+    props.addNewStudentToState(tempStudents)
   };
 
   useEffect(() => {
     //GENERATE UNIQUE ID FOR STUDENT WHEN COMPONENT RENDERS
-    //BECAUSE IT IS NOT RENDERED BUT INSTEAD PASSED THROUGH NAVLINK, FUNCTION IS PASSED INTO LOCATION
     //https://medium.com/@bopaiahmd.mca/how-to-pass-props-using-link-and-navlink-in-react-router-v4-75dc1d9507b4
 
-    //handleNewID();
+    handleNewID();
   }, []);
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <ResponsiveAppDrawer />
+      
       <Dialog
         open={open}
         onClose={handleClose}
