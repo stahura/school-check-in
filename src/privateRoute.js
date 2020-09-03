@@ -7,8 +7,8 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     const { currentUser } = useContext(AuthContext)
     const {state } = useContext(AuthContext)
 
-    console.log("CurrentUser is: ", currentUser)
-    console.log("State is: ", state)
+    //console.log("CurrentUser is: ", currentUser)
+
 
 
     return (

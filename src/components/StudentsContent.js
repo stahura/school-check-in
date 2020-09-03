@@ -8,9 +8,9 @@ import { Route, NavLink, HashRouter } from "react-router-dom";
 import "../styles/global.css";
 import styled from "styled-components";
 import StudentsTable from "../shared-components/StudentsTable";
-import Button from "@material-ui/core/button";
-import firebase from "../firebase"
-import AddStudent from "./AddStudent"
+import firebase from "../firebase";
+import AddStudent from "./AddStudent";
+import Button from "@material-ui/core/Button";
 
 
 const useStyles = makeStyles((theme) => ({

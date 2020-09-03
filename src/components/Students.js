@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import ResponsiveAppDrawer from "../shared-components/ResponsiveAppDrawer";
@@ -8,168 +8,29 @@ import { Route, NavLink, HashRouter } from "react-router-dom";
 import "../styles/global.css";
 import styled from "styled-components";
 import StudentsTable from "../shared-components/StudentsTable";
-import Button from "@material-ui/core/button";
 import firebase from "../firebase";
-import StudentsContent from "./StudentsContent";
-
-class Students extends React.Component {
-  state = {
-    students: [],
-    rows: [],
-    key: 0,
-    count: 0,
-  };
+import AllStudentsTable from "./AllStudentsTable"
 
 
-  changeKey = () => {
-
-    this.setState({ key: Date.now() })
+const useStyles = makeStyles((theme) => ({
+  root: {
+      marginTop: '100px',
   }
 
-  // GET STUDENT DATA WHEN COMPONENT MOUNTS
-  componentDidMount() {
-    //this.createUniqueID();
-    //this.getStudentData();
+}))
 
-
-
-  }
-
-
-  createUniqueID = () => {
-    //From https://gist.github.com/gordonbrander/2230317
-    let id = Math.random().toString(36).substr(2, 15);
-    console.log(id);
-    return id;
-  };
-
-  getStudentData = async () => {
-    const db = firebase.firestore();
-    let students = [...this.state.students]
-
-    await db.collection("students").get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        students.push(doc.data())
-      });
-    });
-
-    this.state.students = students
-    this.copyStudentToRows()
-    this.setState({ students })
-
-
-  };
-
-  copyStudentToRows = () => {
-    let students = this.state.students
-    let rows = [...this.state.rows]
-    let i = 0
-    for (i in students) {
-      let firstName = students[i].firstName
-      let middleName = students[i].middleName
-      let lastName = students[i].lastName
-      let id = students[i].id
-      let guardianOne = "Jeff"
-      let guardianTwo = "Jen"
-      let checkedIn = students[i].checkedIn
-
-      rows.push({ firstName, lastName, id, guardianOne, guardianTwo, checkedIn })
-    }
-    this.setState({ rows })
-
-  }
-
-  handleCheckInClick = (e) => {
-    console.log(e.currentTarget.parentNode.parentNode.children[2].id)
-    let selectedStudentId = e.currentTarget.parentNode.parentNode.children[2].id
-    let students = this.state.students
-    let i = 0
-    for (i in students) {
-      if (students[i].id = selectedStudentId) {
-        students[i].checkedIn = true
-        this.sendNewCheckInStatusToDB(selectedStudentId, true)
-      }
-    }
-    this.setState({ students })
-    //this.setState(prevProps => ({ key: !prevProps.key }));
-    this.changeKey()
-  }
-
-  handleCheckOutClick = (e) => {
-    console.log(e.currentTarget.parentNode.parentNode.children[2].id)
-    let selectedStudentId = e.currentTarget.parentNode.parentNode.children[2].id
-    let students = this.state.students
-    let i = 0
-    for (i in students) {
-      if (students[i].id = selectedStudentId) {
-        students[i].checkedIn = false
-        this.sendNewCheckOutStatusToDB(selectedStudentId, false)
-      }
-    }
-    this.setState({ students })
-
-
-  }
-
-  sendNewCheckInStatusToDB = async (id, status) => {
-    const db = firebase.firestore();
-
-
-    await db.collection("students")
-      .doc(id)
-      .update({
-        checkedIn: status
-      })
-      .then(function () {
-        console.log("Student was saved");
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-
-
-  };
-
-  sendNewCheckOutStatusToDB = async (id, status) => {
-    const db = firebase.firestore();
-
-
-    await db.collection("students")
-      .doc(id)
-      .update({
-        checkedIn: status
-      })
-      .then(function () {
-        console.log("Student was saved");
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-
-
-  };
-
-
-
-  render() {
-
-
-    return (
-      <StudentsContent
-        addNewStudent={this.addNewStudent}
-        createUniqueID={this.createUniqueID}
-        students={this.state.students}
-        rows={this.state.rows}
-        handleCheckInClick={this.handleCheckInClick}
-        handleCheckOutClick={this.handleCheckOutClick}
-        getData={this.getStudentData}
-        key={this.state.key}
-        changeKey={this.changeKey}
-      />
-    );
-  }
+const Students = (props) => {
+  const classes = useStyles()
+  
+    
+  return(
+    <div>
+      <div className={classes.root}>
+        <ResponsiveAppDrawer />
+        <AllStudentsTable key={props.studentTableKey} handleCheckout={props.handleCheckout} handleCheckin={props.handleCheckin} students={props.students} />
+      </div>
+    </div>
+  )
 }
 
 export default Students;
@@ -185,4 +46,6 @@ export default Students;
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
-        }*/
+        }
+
+*/

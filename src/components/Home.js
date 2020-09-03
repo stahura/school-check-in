@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useState} from "react"
 import Paper from '@material-ui/core/Paper'
 import styled from "styled-components"
 import Header from "../shared-components/Header"
@@ -15,75 +15,32 @@ const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: '100px',
     },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        marginTop: '40px',
-        [theme.breakpoints.down('sm')]: {
-            width: '60%'
-        },
-    },
-    contentTop: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gridTemplatRows: 'auto',
-        gridGap: '5px',
-        [theme.breakpoints.down('sm')]: {
-            gridTemplatRows: '1fr 1fr',
-            gridTemplateColumns: '1fr',
-            width: '90%',
-            margin: '0 auto'
-        },
-    },
-    contentTopItem: {
-        width: '100%',
-        height: '200px'
-    },
-    bigNumber: {
-        fontSize: '60px',
-        textAlign: 'center',
-        top: '55%',
-        margin: '0'
-    },
-    contentHeader: {
-        textAlign: 'center'
-    },
-    topPaper: {
-        height: '100%'
-    },
-    contentBottom: {
-        marginTop: '25px',
-        [theme.breakpoints.down('sm')]: {
-            width: '90%',
-            margin: '0 auto',
-            marginTop: '2px'
-        },
-        maxHeight: '300px'
-    }
+    
 
 }))
 
-
-const StyledPaper = styled(Paper)`
-    width: 100%;
-    margin: 0 auto;
-    marginTop: 0
-    
-`
-
-
-
-
 const Home = (props) => {
+
     const classes = useStyles()
+    const [tableKey, setTableKey] = useState(0)
+    
+    const reRenderTable = () => {
+        setTableKey(tableKey + 1)
+    }
+
+    const sortTable = () => {
+        let tempStudents = props.students;
+        tempStudents = [{firstName: 'Donald',lastName: 'Trump'}]
+        props.setStudents(tempStudents)
+        reRenderTable()
+    }
 
     return (
 
         <div >
-
             <div className={classes.root}>
                 <ResponsiveAppDrawer  />
-                <CheckedInTable students={props.students    } />
+                <CheckedInTable checkedInStudents={props.checkedInStudents} key={tableKey} sortTable={sortTable} students={props.students    } />
             </div>
         </div>
     )
