@@ -26,6 +26,11 @@ export default createMuiTheme({
        label: {
            color: 'white'
        }
+   },
+   MuiTypography: {
+     root: {
+       color: "white"
+     }
    }
   }
   
