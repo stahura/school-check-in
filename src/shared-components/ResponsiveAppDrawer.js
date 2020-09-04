@@ -5,6 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -19,6 +20,9 @@ import TimelineIcon from "@material-ui/icons/Timeline";
 import SettingsIcon from "@material-ui/icons/Settings";
 import HelpIcon from "@material-ui/icons/Help";
 import { Route, NavLink, HashRouter } from "react-router-dom";
+import firebase from "../firebase"
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import blackButton from "../styles/blackButton"
 
 const drawerWidth = 220;
 
@@ -63,6 +67,11 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const signout = () => {
+    firebase.auth().signOut()
+    
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -117,6 +126,7 @@ function ResponsiveDrawer(props) {
 
   return (
     <div className={classes.root}>
+      <MuiThemeProvider theme={blackButton}>
       <CssBaseline />
       <AppBar color="primary" position="fixed" className={classes.appBar}>
         <Toolbar style={{justifyContent: 'space-between'}}>
@@ -131,7 +141,7 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" noWrap>
             <NavLink style={{color: 'white'}} to="/"> School Administration </NavLink>
           </Typography>
-          <div style={{color: 'white'}}>Logout</div>
+          <Button onClick={signout} style={{color: 'white'}}>Logout</Button>
         </Toolbar>
        
       </AppBar>
@@ -166,6 +176,7 @@ function ResponsiveDrawer(props) {
           </Drawer>
         </Hidden>
       </nav>
+      </MuiThemeProvider>
     </div>
   );
 }

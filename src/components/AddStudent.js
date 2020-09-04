@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ResponsiveAppDrawer from "../shared-components/ResponsiveAppDrawer";
 import Paper from "@material-ui/core/Paper";
@@ -15,14 +15,19 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Route, NavLink, HashRouter } from "react-router-dom";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     maxWidth: 900,
     zIndex: '1',
-    margin: '0 auto',
-    [theme.breakpoints.down("sm")]: {
-      width: '95%'
+    
+    marginLeft: '300px',
+    marginTop: '100px',
+    [theme.breakpoints.down("md")]: {
+      width: '95%',
+      margin: '0 auto',
+      marginTop: '100px',
     },
     
   },
@@ -176,132 +181,135 @@ const AddStudent = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Student Creation"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            The student has been successfully created
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <NavLink to="/students">
-            <Button onClick={handleClose} color="primary" autoFocus>
-              Okay
-          </Button>
-          </NavLink>
-        </DialogActions>
-      </Dialog>
-      <div className={classes.content}>
-        <StyledPaper elevation={20}>
-          <h2 className={classes.header}>Adding New Student</h2>
-          <Card>
-            <CardContent>
-              <form>
-                <h3>Student Info</h3>
-                <TextField
-                  id="firstName"
-                  label="First Name"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={updateNewStudentInfo}
-                />
-                <TextField
-                  id="middleName"
-                  label="Middle Name"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={updateNewStudentInfo}
-                />
-                <TextField
-                  id="lastName"
-                  label="Last Name"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={updateNewStudentInfo}
-                />
-                <TextField
-                  id="uniqueID"
-                  label="Student ID"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{ readOnly: true }}
-                  variant="outlined"
-                  value={studentID}
-                />
-                <h3>Guardian Information</h3>
-                <TextField
-                  id="guardianFirst"
-                  label="First Name"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={updateNewStudentInfo}
-                />
-                <TextField
-                  id="guardianLast"
-                  label="Last Name"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={updateNewStudentInfo}
-                />
-                <TextField
-                  id="guardianEmail"
-                  label="Email"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={updateNewStudentInfo}
-                />
-                <TextField
-                  id="guardianNumber"
-                  label="Phone Number"
-                  style={{ margin: 8 }}
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={updateNewStudentInfo}
-                />
-                <Button onClick={sendStudentInfoToDB}>Submit</Button>
-              </form>
-            </CardContent>
-          </Card>
-        </StyledPaper>
-      </div>
-    </div >
+    <Fragment>
+      <ResponsiveAppDrawer />
+      <div className={classes.root}>
+        
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Student Creation"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              The student has been successfully created
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <NavLink to="/students">
+              <Button onClick={handleClose} color="primary" autoFocus>
+                Okay
+            </Button>
+            </NavLink>
+          </DialogActions>
+        </Dialog>
+        <div className={classes.content}>
+          <StyledPaper elevation={20}>
+            <h2 className={classes.header}>Adding New Student</h2>
+            <Card>
+              <CardContent>
+                <form>
+                  <h3>Student Info</h3>
+                  <TextField
+                    id="firstName"
+                    label="First Name"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={updateNewStudentInfo}
+                  />
+                  <TextField
+                    id="middleName"
+                    label="Middle Name"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={updateNewStudentInfo}
+                  />
+                  <TextField
+                    id="lastName"
+                    label="Last Name"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={updateNewStudentInfo}
+                  />
+                  <TextField
+                    id="uniqueID"
+                    label="Student ID"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    InputProps={{ readOnly: true }}
+                    variant="outlined"
+                    value={studentID}
+                  />
+                  <h3>Guardian Information</h3>
+                  <TextField
+                    id="guardianFirst"
+                    label="First Name"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={updateNewStudentInfo}
+                  />
+                  <TextField
+                    id="guardianLast"
+                    label="Last Name"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={updateNewStudentInfo}
+                  />
+                  <TextField
+                    id="guardianEmail"
+                    label="Email"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={updateNewStudentInfo}
+                  />
+                  <TextField
+                    id="guardianNumber"
+                    label="Phone Number"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={updateNewStudentInfo}
+                  />
+                  <Button onClick={sendStudentInfoToDB}>Submit</Button>
+                </form>
+              </CardContent>
+            </Card>
+          </StyledPaper>
+        </div>
+      </div >
+    </Fragment>
   );
 };
 

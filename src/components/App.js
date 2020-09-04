@@ -1,6 +1,5 @@
 import React , {useState,useEffect} from "react"
 import Login from "../components/Login"
-import CheckedInTable from "../components/CheckedInTable"
 import PrivateRoute from "../privateRoute"
 import { AuthProvider } from "../auth"
 import Home from "../components/Home"
@@ -30,11 +29,9 @@ const App = () => {
 
         await db.collection("students").get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
-                // doc.data() is never undefined for query doc snapshots
-                //console.log(doc.id, " => ", doc.data());
+
                 let student = doc.data()
                 tempStudents.push(student)
-                //console.log("TEMPSTUDENTS is => ",tempStudents)
                 
             });
         });
@@ -68,7 +65,6 @@ const App = () => {
 
     const sendNewCheckOutStatusToDB = async (id, status) => {
         const db = firebase.firestore();
-    
     
         await db.collection("students")
           .doc(id)
@@ -164,7 +160,7 @@ const App = () => {
                 />
                 <PrivateRoute 
                     path="/addStudents" 
-                    component={() => <AddStudent students={students} />} 
+                    component={() => <AddStudent addNewStudentToState={addNewStudentToState} students={students} />} 
                 />
                 <PrivateRoute 
                     exact path="/" 

@@ -136,8 +136,9 @@ const Login = ({ history }) => {
 
 
             </StyledPaper>
-            <div style={{ textAlign: 'center', margin: '0 auto', marginTop: '50px', width: '50%' }}>An option to create new users has not been created.</div>
-            <div style={{ textAlign: 'center', margin: '0 auto', marginTop: '0px', width: '50%' }}>Please send an email to riley.stahura@gmail.com to get a test account.</div>
+            <div style={{ textAlign: 'center', margin: '0 auto', marginTop: '50px', width: '50%' }}>Please use this test account:</div>
+            <div style={{ textAlign: 'center', margin: '0 auto', marginTop: '0px', width: '50%' }}>Username: riley.stahura@gmail.com</div>
+            <div style={{ textAlign: 'center', margin: '0 auto', marginTop: '0px', width: '50%' }}>Password: riley123</div>               
         </div >
 
 

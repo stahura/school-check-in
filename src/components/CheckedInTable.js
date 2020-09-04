@@ -7,17 +7,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 import TablePagination from "@material-ui/core/TablePagination";
-import PropTypes from "prop-types";
-import TableFooter from "@material-ui/core/TableFooter";
-import IconButton from "@material-ui/core/IconButton";
-import FirstPageIcon from "@material-ui/icons/FirstPage";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import LastPageIcon from "@material-ui/icons/LastPage";
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -74,14 +65,7 @@ const AddressTable = (props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(8);
   const emptyRows =rowsPerPage - Math.min(rowsPerPage, props.checkedInStudents.length - page * rowsPerPage);
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
-  const [dense, setDense] = React.useState(false);
-  const [checkedInStudents, setCheckedInStudents] = useState([])
-  const [verifiedCheckedIn, setVerifiedCheckedIn] = useState(false)
 
-  
   
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
