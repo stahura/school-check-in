@@ -4,7 +4,7 @@ The purpose of this application is to practice making a table component with Rea
 
 ### Instructions for setup
 
-This was create with create-react-app, so all you have to do is 'npm start' once you have installed the necessary packages. 
+This was created with create-react-app, so all you have to do is 'npm start' once you have installed the necessary packages. 
 
 ### This app is incomplete
 
