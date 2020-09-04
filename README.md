@@ -8,8 +8,7 @@ This was created with create-react-app, so all you have to do is 'npm start' onc
 
 ### This app is incomplete
 
-I did not create the section to edit/create/delete administrators because it simply wasn't a priority. The priority is working with state and react hooks and 
-passing down props. I'll eventually update the app with full functionality.
+I did not create the section to edit/create/delete administrators,or view check-in history because it simply wasn't a priority. The priority is working with state and react hooks and passing down props. I'll eventually update the app with full functionality.
 
 ### Known issues
 
