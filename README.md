@@ -19,3 +19,4 @@ The toolbar/appbar that comes from the side isn't considered a sibling to the ta
 If you create a student and return to the homescreen by clicking the "school administration" title on the header, the checkedinstudents table will not be updated unless you refresh.
 
 
+url: https://school-check-in-10062.web.app/
